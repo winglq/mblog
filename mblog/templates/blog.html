@@ -1,0 +1,13 @@
+{% extends "__base.html" %}
+{% block content %}
+<div class="center-block col-md-4" style="float: none" id="blog">
+{% include "__loading.html" %}
+</div>
+{% endblock %}
+{% block script %}
+<script>
+var name = window.location.pathname.split('/').slice(-1)[0]
+var endpoint = "/data/blogs/" + name
+load_replace(endpoint, "blog")
+</script>
+{% endblock %}

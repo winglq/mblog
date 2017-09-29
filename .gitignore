@@ -1,0 +1,12 @@
+*.pyc
+.tox/*
+*.egg-info
+AUTHORS
+ChangeLog
+.testrepository/*
+*.swp
+*.swo
+*.retry
+/docs/_book/*
+/docs/node_modules/*
+*egg/

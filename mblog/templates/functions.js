@@ -27,7 +27,6 @@ function list_to_link_process_fn(resp){
     lst = $.each(resp.titles, function(index, val){
             html = html + "<a href='/blogs/" + val +"' >" + val + "</a>"
     })
-    console.log(html)
     return html
 }
 

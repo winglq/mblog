@@ -1,4 +1,12 @@
 {% extends "__base.html" %}
 {% block content %}
-{% include "__bloglist.html" %}
+<div class="center-block col-md-4" style="float: none" id="bloglist">
+{% include "__loading.html" %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+load_replace("/data/bloglist", "bloglist", list_to_link_process_fn)
+</script>
 {% endblock %}

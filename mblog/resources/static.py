@@ -9,3 +9,7 @@ class Static(object):
             resp.body = f.read()
         if name.split('.')[-1] in ['gif', 'jpg', 'png']:
             resp.content_type = "image/%s" % (name.split('.')[-1])
+        if name.split('.')[-1] in ['css']:
+            resp.content_type = "text/css"
+        if name.split('.')[-1] in ['html']:
+            resp.content_type = "text/html"

@@ -8,6 +8,7 @@ function load(endpoint, callback){
 }
 
 function default_process_fn(resp){
+    console.log(resp.data)
     return resp.data
 }
 
@@ -22,7 +23,7 @@ function load_replace(endpoint, tag_id, process_fn=default_process_fn){
 }
 
 function list_to_link_process_fn(resp){
-    html = ""
+    html = "<img src='arch.png'>image</img>"
     lst = $.each(resp.titles, function(index, val){
             html = html + "<a href='/blogs/" + val +"' >" + val + "</a>"
     })

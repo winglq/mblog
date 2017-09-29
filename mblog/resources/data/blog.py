@@ -13,6 +13,7 @@ class Blog(object):
             blog_content = markdown.markdown(
                 f.read(),
                 extensions=['markdown.extensions.tables',
-                            'markdown.extensions.toc'])
+                            'markdown.extensions.toc',
+                            'markdown.extensions.nl2br'])
         resp.body = json.dumps({'data': blog_content})
         resp.status = falcon.HTTP_200

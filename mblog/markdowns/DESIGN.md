@@ -17,7 +17,7 @@
 Openstack cinder的快照无法在不同数据中心中可见，本系统的目的是根据用户的选择将公有云快照复制到私有云Openstack环境中去，使得用户的数据在块级别上具有容灾的功能。
 
 ## 整体构架
-![](arch.png)
+![](/statics/arch.png)
 
 ### 对Cinder的修改
 需要在原有Openstack Cinder组件中添加新的API，用于快照复制。快照拷贝的执行过程中需要调用对端Openstack数据中心的Cinder API，所以还需要添加一个数据中心名字到对端Keystone endpoint的映射。这样用户选择了需要复制的快照和目标数据中心后，cinder就可以通过映射表获得keystone的信息，继而获得对端cinder的endpoint。

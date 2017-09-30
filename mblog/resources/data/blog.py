@@ -14,6 +14,7 @@ class Blog(object):
                 f.read(),
                 extensions=['markdown.extensions.tables',
                             'markdown.extensions.toc',
-                            'markdown.extensions.nl2br'])
+                            'markdown.extensions.nl2br',
+                            'codehilite'])
         resp.body = json.dumps({'data': blog_content})
         resp.status = falcon.HTTP_200

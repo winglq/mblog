@@ -5,5 +5,6 @@ Markdown==2.6.9
 MarkupSafe==1.0
 PasteDeploy==1.5.2
 pbr==3.1.1
+Pygments==2.2.0
 python-mimeparse==1.6.0
 six==1.11.0

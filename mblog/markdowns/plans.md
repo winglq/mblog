@@ -14,3 +14,6 @@
 
 ## html
 * we need a dir
+
+## server
+* markdown extension to support auto add `/statics` prefix for images. better as a paramter

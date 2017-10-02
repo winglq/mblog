@@ -8,7 +8,6 @@ function load(endpoint, callback){
 }
 
 function default_process_fn(resp){
-    console.log(resp.data)
     return resp.data
 }
 
@@ -19,6 +18,7 @@ function replace(tag_id, resp, process_fn){
 function load_replace(endpoint, tag_id, process_fn=default_process_fn){
     load(endpoint, function cb(resp){
         replace(tag_id, resp, process_fn)
+        change_img_to_responsive()
         })
 }
 
@@ -29,5 +29,9 @@ function list_to_link_process_fn(resp){
     })
     return html
 }
-
+function change_img_to_responsive(){
+    imgs = $("img").each(function(){
+        $(this).addClass("img-responsive")
+    })
+}
 </script>

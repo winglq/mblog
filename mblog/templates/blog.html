@@ -6,8 +6,10 @@
 {% endblock %}
 {% block script %}
 <script>
-var name = window.location.pathname.split('/').slice(-1)[0]
-var endpoint = "/data/blogs/" + name
-load_replace(endpoint, "blog")
+$(function (){
+  var name = window.location.pathname.split('/').slice(-1)[0]
+  var endpoint = "/data/blogs/" + name
+  load_replace(endpoint, "blog")
+})
 </script>
 {% endblock %}

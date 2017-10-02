@@ -8,3 +8,6 @@ em
 {
         font-style:italic
 }
+img {
+  background: url(/statics/loader.gif) 50%;
+}

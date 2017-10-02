@@ -1,3 +1,6 @@
+title: My blog server dev plans
+description: My blog server dev plans
+
 # mblog plans
 ## styles
 * add `<row>` to each row

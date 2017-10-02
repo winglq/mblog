@@ -1,3 +1,7 @@
+title: This is a test
+description: Code blocks must be indented by 4 whitespaces. 
+    Python-Markdown has a auto-guess function which works
+
 ##This is a test
 
 Code blocks must be indented by 4 whitespaces.

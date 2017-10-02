@@ -8,3 +8,18 @@ em
 {
         font-style:italic
 }
+.navbar 
+{
+        margin-bottom: 0;
+        border-radius: 0;
+}
+.row.content
+{
+        background-color: #f1f1f1;
+        height: 100%;
+}
+
+.center-block
+{
+        background-color: #ffffff;
+}

@@ -21,10 +21,19 @@ class FileSource(SourceDriver):
                 entry = self.get_empty_entry()
                 entry['location'] = "file://%s" % ("%s/%s" % (d, f))
                 entry['id'] = f.strip().split('.')[0]
-                entry['title'] = entry['id']
                 entry['format'] = 'markdown'
+                self.get_metadata("%s/%s" % (d, f), entry)
                 blog_entries.append(entry)
         return blog_entries
+
+    def get_metadata(self, filepath, entry):
+        with codecs.open(filepath, 'r', 'utf-8') as f:
+            md = markdown.Markdown(extensions = ['markdown.extensions.meta'])
+            html = md.convert(f.read())
+            entry.update(md.Meta)
+            for k, v in entry.iteritems():
+                if isinstance(v, type([])):
+                    entry[k] = ''.join(v)
 
     @staticmethod
     def location_to_file_path(location):
@@ -43,5 +52,6 @@ class FileSource(SourceDriver):
                     extensions=['markdown.extensions.tables',
                                 'markdown.extensions.toc',
                                 'markdown.extensions.nl2br',
-                                'codehilite'])
+                                'codehilite',
+                                'markdown.extensions.meta'])
         return blog_content

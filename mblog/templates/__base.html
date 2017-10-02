@@ -10,12 +10,13 @@
 
 </head>
 <body>
+{% include "__nav.html" %}
 <div class="container-fulid">
-<div class="row">
-<div class="center-block col-md-4 col-xs-12" style="float: none" />
-{% block content%}{% endblock %}
-</div>
-</div>
+  <div class="row content">
+    <div class="center-block col-md-4 col-xs-12"  style="float: none">
+    {% block content%}{% endblock %}
+    </div>
+  </div>
 </div>
 {% include "cdn.js" %}
 {% include "functions.js" %}

@@ -24,7 +24,7 @@ function load_replace(endpoint, tag_id, process_fn=default_process_fn){
 }
 
 function list_to_link_process_fn(resp){
-    html = "<img src='arch.png'>image</img>"
+    html = ""
     lst = $.each(resp.titles, function(index, val){
             html = html + "<a href='/blogs/" + val +"' >" + val + "</a>"
     })
@@ -38,14 +38,14 @@ function change_img_to_responsive(){
 }
 
 function images_loaded(){
-    var dfds = [];
     $('img[src!=""]').each(function(){
-        var dfd = $.Deferred();
-        dfds.push(dfd);
+        var old_img = this;
         var img = new Image();
-        img.onload = function(){dfd.resolve();}
-        img.onerror = function(){dfd.resolve();}
+        console.log("before f onlod")
+        img.onload = function(){$(old_img).attr('src',img.src); console.log(img.src)};
+        console.log("after f onlod")
         img.src = this.src;
+        this.src = "/statics/loader.gif"
     })
 }
 </script>

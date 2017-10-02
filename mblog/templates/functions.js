@@ -18,8 +18,8 @@ function replace(tag_id, resp, process_fn){
 function load_replace(endpoint, tag_id, process_fn=default_process_fn){
     load(endpoint, function cb(resp){
         replace(tag_id, resp, process_fn)
-        images_loaded()
         change_img_to_responsive()
+        images_loaded('/statics/loader.gif')
         })
 }
 
@@ -37,15 +37,13 @@ function change_img_to_responsive(){
     })
 }
 
-function images_loaded(){
+function images_loaded(loading_gif){
     $('img[src!=""]').each(function(){
         var old_img = this;
         var img = new Image();
-        console.log("before f onlod")
-        img.onload = function(){$(old_img).attr('src',img.src); console.log(img.src)};
-        console.log("after f onlod")
+        img.onload = function(){$(old_img).attr('src',img.src)};
         img.src = this.src;
-        this.src = "/statics/loader.gif"
+        this.src = loading_gif
     })
 }
 </script>

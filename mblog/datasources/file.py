@@ -22,6 +22,7 @@ class FileSource(SourceDriver):
                 entry['location'] = "file://%s" % ("%s/%s" % (d, f))
                 entry['id'] = f.strip().split('.')[0]
                 entry['title'] = entry['id']
+                entry['format'] = 'markdown'
                 blog_entries.append(entry)
         return blog_entries
 
@@ -35,11 +36,12 @@ class FileSource(SourceDriver):
             if entry['id'] == entry_id:
                 md = self.location_to_file_path(entry['location'])
 
-        with codecs.open(md, 'r', 'utf-8') as f:
-            blog_content = markdown.markdown(
-                f.read(),
-                extensions=['markdown.extensions.tables',
-                            'markdown.extensions.toc',
-                            'markdown.extensions.nl2br',
-                            'codehilite'])
+        if entry['format'] == 'markdown':
+            with codecs.open(md, 'r', 'utf-8') as f:
+                blog_content = markdown.markdown(
+                    f.read(),
+                    extensions=['markdown.extensions.tables',
+                                'markdown.extensions.toc',
+                                'markdown.extensions.nl2br',
+                                'codehilite'])
         return blog_content

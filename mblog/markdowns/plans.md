@@ -17,3 +17,8 @@
 
 ## server
 * markdown extension to support auto add `/statics` prefix for images. better as a paramter
+
+## others
+* markdown documents will add metadata
+* a tool to generate markdown template(with metadata)
+* a simple edit to support online doc add. how to deal with images?

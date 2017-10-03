@@ -43,6 +43,8 @@ class FileSource(SourceDriver):
                 if not entry['title']:
                     entry['title'] = entry['id']
                 blog_entries.append(entry)
+        blog_entries = sorted(blog_entries, key=lambda x: x['date'],
+                              reverse=True)
         if exclude_entries:
             return [x for x in blog_entries if not x['excluded']]
         else:

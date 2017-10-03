@@ -1,4 +1,5 @@
 import falcon
+import os
 
 from mblog.resources.index import Index
 from mblog.resources.blog import Blog
@@ -6,7 +7,11 @@ from mblog.resources.data.blog import Blog as Dblog
 from mblog.resources.data.bloglist import BlogList as DBlogList
 from mblog.resources.bloglist import BlogList
 from mblog.resources.static import Static
+from mblog.datasources.file import FileSource
 
+blog_path = os.path.join(os.getcwd(), 'mblog/markdowns')
+site_path = os.path.join(os.getcwd(), 'mblog/site-mds')
+FileSource([blog_path, site_path], ['about.md', 'contact.md', 'README.md'])
 
 def launch(conf):
     app = falcon.API()

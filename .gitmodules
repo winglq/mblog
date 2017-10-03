@@ -1,0 +1,3 @@
+[submodule "mblog/markdowns"]
+	path = mblog/markdowns
+	url = https://github.com/winglq/markdowns.git

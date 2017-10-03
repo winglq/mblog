@@ -3,14 +3,28 @@ import codecs
 import markdown
 
 from mblog.datasources.driver import SourceDriver
+from mblog.exceptions import InstanceNotInit
 
 
 class FileSource(SourceDriver):
-    def __init__(self, dir_list):
+    instance = None
+    def __init__(self, dir_list, exclude_files):
         if not isinstance(dir_list, type([])):
             dir_list = [dir_list]
         self.dir_list = dir_list
-        self.exclude_files = ['about.md', 'contact.md']
+        self.exclude_files = exclude_files
+
+    def __new__(cls, *args, **kwargs):
+        if cls.instance is None:
+            cls.instance = SourceDriver.__new__(cls, *args,
+                                                **kwargs)
+        return cls.instance
+
+    @classmethod
+    def get_instance(cls):
+        if cls.instance is None:
+            InstanceNotInit(class_name = cls.__name__)
+        return cls.instance
 
     def get_entries(self, exclude_entries=True):
         blog_entries = []
@@ -26,6 +40,8 @@ class FileSource(SourceDriver):
                 entry['id'] = f.strip().split('.')[0]
                 entry['format'] = 'markdown'
                 self.get_metadata("%s/%s" % (d, f), entry)
+                if not entry['title']:
+                    entry['title'] = entry['id']
                 blog_entries.append(entry)
         if exclude_entries:
             return [x for x in blog_entries if not x['excluded']]

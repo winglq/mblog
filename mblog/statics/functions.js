@@ -56,5 +56,13 @@ function images_loaded(loading_gif){
 function active_menu(){
     var path = window.location.pathname.substring(1);
     $('.nav>li.active').removeClass('active');
-    $('.nav>li>a[href="/' + path + '"]').parent().addClass('active');
+    var elem = $('.nav>li>a[href="/' + path + '"]');
+    if (elem.length == 0){
+        first_sub_path = path.split('/')[0];
+        elem = $('.nav>li>a[href="/' + first_sub_path + '"]');
+    }
+    if (elem.length == 0) {
+        elem = $('.nav>li>a[href="/"]');
+    }
+    elem.parent().addClass('active');
 }

@@ -1,16 +1,14 @@
 <div class="row">
   {% for entry in data %}
-  <div class="col-md-12" style="height:100px;">
-    <div class="playground-editor"  style="height:300px;">
-      <a href="/blogs/{{ entry.id }}"><h3>{{ entry.title }}</h3></a>
-      <div class='row'>
+  <div class="col-md-12 border-shadow">
+    <a href="/blogs/{{ entry.id }}"><h3>{{ entry.title }}</h3></a>
+    <div class='row'>
       <div class='col-sm-6'>{{ entry.author }}</div>
       <div class='col-sm-6'>{{ entry.date}}</div>
-      </div>
-      {% if entry.description %}
-      <p>{{entry.description}}</p>
-      {% endif %}
     </div>
+    {% if entry.description %}
+    <p>{{entry.description}}</p>
+    {% endif %}
   </div>
   {% endfor %}
 </div>

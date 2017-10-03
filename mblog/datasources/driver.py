@@ -10,5 +10,6 @@ class SourceDriver(object):
             'id': '',
             'tags': [],
             'category': '',
+            'excluded': False,
         }
         return blog_entry

@@ -1,7 +1,8 @@
 from jinja2 import Environment, PackageLoader
 
 env = Environment(
-        loader=PackageLoader('mblog', 'templates'))
+    loader=PackageLoader('mblog', 'templates'))
+
 
 class Blog(object):
     def on_get(self, req, resp, entry_id):

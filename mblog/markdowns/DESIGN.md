@@ -1,5 +1,10 @@
 title: 异地快照系统设计文档
+author: Liu Qing
+date: 2017-10-03
 description: 异地快照系统设计文档
+tags:
+category:
+
 # 异地快照系统设计文档
 
 ## 版本变更

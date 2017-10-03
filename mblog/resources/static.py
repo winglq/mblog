@@ -1,5 +1,4 @@
 import os
-import falcon
 
 
 class Static(object):
@@ -21,4 +20,3 @@ class Static(object):
                 resp.body = f.read()
             if name.split('.')[-1] in ['gif', 'jpg', 'png']:
                 resp.content_type = "image/%s" % (name.split('.')[-1])
-

@@ -15,11 +15,18 @@ function replace(tag_id, resp, process_fn){
    $('#' + tag_id).html(process_fn(resp))
 }
 
+function add_table_attribute(){
+   $('table').each(function(){
+       $(this).addClass('table')
+   })
+}
+
 function load_replace(endpoint, tag_id, process_fn=default_process_fn){
     load(endpoint, function cb(resp){
         replace(tag_id, resp, process_fn)
         change_img_to_responsive()
         images_loaded('/statics/loader.gif')
+        add_table_attribute()
         })
 }
 

@@ -10,6 +10,8 @@ from mblog.resources.bloglist import BlogList
 from mblog.resources.static import Static
 from mblog.datasources.file import FileSource
 from mblog.resources.data.temperature import Temperature
+from mblog.resources.user import User
+from mblog.resources.data.host import Host
 from oslo_config import cfg
 from oslo_log import log as logging
 
@@ -26,7 +28,8 @@ def launch(conf):
     logging.setup(cfg.CONF, 'mblog')
 
     app = falcon.API()
-    app.resp_options.secure_cookies_by_default=False
+    app.resp_options.secure_cookies_by_default = False
+    app.req_options.auto_parse_form_urlencoded = True
     app.add_route('/', Index())
     app.add_route('/blogs/{entry_id}', Blog())
     app.add_route('/data/blogs/{entry_id}', Dblog())
@@ -36,4 +39,6 @@ def launch(conf):
     app.add_route('/data/temperature/{data:int}', Temperature())
     app.add_route('/data/temperature', Temperature())
     app.add_route('/data/images/{name}', Image())
+    app.add_route('/login', User())
+    app.add_route('/data/server', Host())
     return app

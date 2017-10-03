@@ -29,21 +29,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
+      <form id="login-form" action="/login" method="post">
+        <div class="modal-body">
           <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-            <input class="form-control" type="text" placeholder="Email address">
+            <input class="form-control" type="text" placeholder="Email address" name="user">
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input class="form-control" type="password" placeholder="Password">
+            <input class="form-control" type="password" placeholder="Password" name="password">
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Login</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+        <input type="submit" value="Login" class="btn btn-primary" />
+        </div>
+      </form>
     </div>
   </div>
 </div>

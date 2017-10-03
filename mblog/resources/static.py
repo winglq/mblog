@@ -13,6 +13,9 @@ class Static(object):
                 resp.content_type = "text/css"
             if name.split('.')[-1] in ['html']:
                 resp.content_type = "text/html"
+            if name.split('.')[-1] in ['js']:
+                resp.content_type = "text/javascript"
+
 
         path = os.path.join(os.getcwd(), "mblog/markdowns/%s" % name)
         if os.path.exists(path):

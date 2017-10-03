@@ -1,4 +1,3 @@
-<script>
 function load(endpoint, callback){
     $.ajax({
         method: "GET",
@@ -59,4 +58,3 @@ function active_menu(){
     $('.nav>li.active').removeClass('active');
     $('.nav>li>a[href="/' + path + '"]').parent().addClass('active');
 }
-</script>

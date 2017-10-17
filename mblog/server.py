@@ -8,6 +8,7 @@ from mblog.resources.data.bloglist import BlogList as DBlogList
 from mblog.resources.bloglist import BlogList
 from mblog.resources.static import Static
 from mblog.datasources.file import FileSource
+from mblog.resources.data.temperature import Temperature
 
 blog_path = os.path.join(os.getcwd(), 'mblog/markdowns')
 site_path = os.path.join(os.getcwd(), 'mblog/site-mds')
@@ -21,4 +22,6 @@ def launch(conf):
     app.add_route('/statics/{name}', Static())
     app.add_route('/bloglist', BlogList())
     app.add_route('/data/bloglist', DBlogList())
+    app.add_route('/data/temperature/{data:int}', Temperature())
+    app.add_route('/data/temperature', Temperature())
     return app

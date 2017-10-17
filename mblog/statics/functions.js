@@ -66,3 +66,13 @@ function active_menu(){
     }
     elem.parent().addClass('active');
 }
+
+function show_temperature(){
+    $.ajax({
+        method: "GET",
+        url: '/data/temperature',
+        success: function cb(resp) {
+            $('#temper').text(' ' + resp);
+        }
+    });
+}

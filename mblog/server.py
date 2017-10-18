@@ -26,6 +26,7 @@ def launch(conf):
     logging.setup(cfg.CONF, 'mblog')
 
     app = falcon.API()
+    app.resp_options.secure_cookies_by_default=False
     app.add_route('/', Index())
     app.add_route('/blogs/{entry_id}', Blog())
     app.add_route('/data/blogs/{entry_id}', Dblog())

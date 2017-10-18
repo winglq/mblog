@@ -16,7 +16,6 @@ class Static(object):
             if name.split('.')[-1] in ['js']:
                 resp.content_type = "text/javascript"
 
-
         path = os.path.join(os.getcwd(), "mblog/markdowns/%s" % name)
         if os.path.exists(path):
             with open(path, 'rb') as f:

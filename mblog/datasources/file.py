@@ -7,7 +7,9 @@ from mblog.exceptions import InstanceNotInit
 
 
 class FileSource(SourceDriver):
+
     instance = None
+
     def __init__(self, dir_list, exclude_files):
         if not isinstance(dir_list, type([])):
             dir_list = [dir_list]
@@ -23,7 +25,7 @@ class FileSource(SourceDriver):
     @classmethod
     def get_instance(cls):
         if cls.instance is None:
-            InstanceNotInit(class_name = cls.__name__)
+            InstanceNotInit(class_name=cls.__name__)
         return cls.instance
 
     def get_entries(self, exclude_entries=True):

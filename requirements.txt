@@ -13,3 +13,6 @@ python-mimeparse==1.6.0
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
+oslo.config==4.13.1
+oslo.log==3.31.0
+futures==3.1.1

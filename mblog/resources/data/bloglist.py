@@ -1,4 +1,3 @@
-import os
 import json
 
 from mblog.datasources.file import FileSource

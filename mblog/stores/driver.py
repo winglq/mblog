@@ -28,7 +28,10 @@ class StoreDriver(object):
            @path: destination location
         '''
 
-        raise NotImplementedError
+        raise NotImplementedError()
+
+    def load(self, path):
+        raise NotImplementedError()
 
     @classmethod
     def factory(cls, prefix):

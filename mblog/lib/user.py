@@ -1,21 +1,37 @@
-import uuid
+import json
+
+from mblog.stores.driver import StoreDriver
+from mblog import exceptions
 
 
-class User:
-    name = "1"
-    pwd = "10"
-    grp = "admin"
-    token_map = {}
-    reverse_token_map = {}
+class FileStoreUser(object):
+    _path = "/tmp/users.json"
+    _users = {}
 
-    def authorize(self, token):
-        usr = self.reverse_token_map.get(token, None)
-        return usr
+    def __init__(self, username):
+        self.drv = StoreDriver.factory("file")
+        self._username = username
+        self.load()
+        if username not in self._users:
+            raise exceptions.UserNotExist(user=username)
+        self._password = self._users[username]["password"]
+        self._group = self._users[username]["group"]
 
-    def authenticate(self, usr, pwd):
-        if usr == self.name and pwd == self.pwd:
-            if usr not in self.token_map:
-                token = str(uuid.uuid4())
-                self.token_map[usr] = token
-                self.reverse_token_map[token] = usr
-            return self.token_map[usr]
+    def load(self):
+        if self._users:
+            return
+        f = self.drv.load(self._path)
+        cnt = f.read().decode('utf-8')
+        self._users = json.loads(cnt)
+
+    @property
+    def username(self):
+        return self._username
+
+    @property
+    def password(self):
+        return self._password
+
+    @property
+    def group(self):
+        return self._group

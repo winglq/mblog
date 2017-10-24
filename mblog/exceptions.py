@@ -35,3 +35,13 @@ class RBDOperationError(MBlogException):
 
 class ImageFormatError(MBlogException):
     msg = "Image format not supported"
+
+
+class UserNotExist(MBlogException):
+    error_code = 403
+    msg = "User {user} does not exist"
+
+
+class PasswordInCorrect(MBlogException):
+    error_code = 403
+    msg = "Password does not match user name."

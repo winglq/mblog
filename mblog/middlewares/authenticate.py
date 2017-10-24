@@ -1,4 +1,6 @@
-from mblog.lib.user import User
+import falcon
+
+from mblog.lib.userauth import UserAuth
 
 
 class AuthenticateMiddleware(object):
@@ -17,20 +19,21 @@ class AuthenticateMiddleware(object):
             user = environ['wsgi.input'].read()
             usr = user.split('&')[0].split('=')[-1]
             pwd = user.split('&')[1].split('=')[-1]
-            token = User().authenticate(usr, pwd)
-            if token:
-                if '?next=' in environ['PATH_INFO']:
-                    environ['PATH_INFO'] = environ['PATH_INFO']. \
-                        split('?next=')[-1]
-                    environ['HTTP_COOKIE'] += '; X-AUTH-ID=%s' % token
-                    resp = self.app(environ, start_response)
-                    return resp
-                else:
-                    start_response('200', self.get_resp_headers(token))
-                    return "Login successful"
+            try:
+                token = UserAuth().authenticate(usr, pwd)
+            except falcon.HTTPError as e:
+                start_response(str(e.status), self.get_resp_headers())
+                return str(e)
+
+            if '?next=' in environ['PATH_INFO']:
+                environ['PATH_INFO'] = environ['PATH_INFO']. \
+                    split('?next=')[-1]
+                environ['HTTP_COOKIE'] += '; X-AUTH-ID=%s' % token
+                resp = self.app(environ, start_response)
+                return resp
             else:
-                start_response('401', self.get_resp_headers())
-                return "Access Denied"
+                start_response('200', self.get_resp_headers(token))
+                return "Login successful"
         else:
             resp = self.app(environ, start_response)
             return resp

@@ -28,3 +28,6 @@ class FilestoreDriver(StoreDriver):
         with open(abs_path, 'wb') as f:
             for d in utils.stream_iter(data, self.CHUNCK_SIZE):
                 f.write(d)
+
+    def load(self, path):
+        return open(path, 'rb')

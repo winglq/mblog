@@ -1,6 +1,8 @@
 import json
 import os
 
+from mblog import exceptions
+
 
 class Authorize(object):
     policies = {}
@@ -30,6 +32,9 @@ class Authorize(object):
 
         if not hasattr(resource, 'get_owner'):
             return False
+
+        if not user:
+            raise exceptions.RequireLogin()
 
         if rule is "owner":
             return user.username == resource.get_owner(*args, **kwargs)

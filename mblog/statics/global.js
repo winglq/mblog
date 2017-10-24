@@ -1,4 +1,5 @@
 $(function(){
-    active_menu()
-    show_temperature()
+    active_menu();
+    show_temperature();
+    login();
 })

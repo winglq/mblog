@@ -7,7 +7,7 @@ class MBlogException(falcon.HTTPError):
     error_code = 400
 
     def __init__(self, **kwargs):
-        super(MBlogException, self).__init__(self.error_code)
+        super(MBlogException, self).__init__(str(self.error_code))
         self.msg = self.msg.format(**kwargs)
 
     def to_dict(self, obj_type=dict):
@@ -15,6 +15,10 @@ class MBlogException(falcon.HTTPError):
 
     def __str__(self):
         return self.msg
+
+    def to_xml(self):
+        return "<error><code>%s</code><message>%s</message></error>" % \
+            (self.error_code, self.msg)
 
 
 class InstanceNotInit(MBlogException):
@@ -45,3 +49,11 @@ class UserNotExist(MBlogException):
 class PasswordInCorrect(MBlogException):
     error_code = 403
     msg = "Password does not match user name."
+
+class TokenNotExist(MBlogException):
+    error_code = 403
+    msg = "Token expired or not exist"
+
+class IllegalToken(MBlogException):
+    error_code = 403
+    msg = "Token is illegal"

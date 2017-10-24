@@ -8,10 +8,10 @@ class AuthenticateMiddleware(object):
         self.app = app
         self.conf = conf
 
-    def get_resp_headers(self, auth_id=False):
+    def get_resp_headers(self, token=None):
         headers = [("Content-type", "text/json")]
-        if auth_id:
-            headers.append(("Set-Cookie", "X-AUTH-ID=%s" % auth_id))
+        if token:
+            headers.append(("Set-Cookie", "X-AUTH-ID=%s" % token))
         return headers
 
     def __call__(self, environ, start_response):

@@ -1,7 +1,10 @@
+import falcon
+
+from mblog.hooks.authorize import authorize
+
+
 class Host(object):
+    @falcon.before(authorize)
     def on_get(self, req, resp):
-        if req.cookies.get('X-AUTH-ID', None) == '1234567':
-            with open('/tmp/remote_acess.txt', 'r') as f:
-                resp.body = f.readlines()[-1]
-        else:
-            resp.body = "please login"
+        with open('/tmp/remote_acess.txt', 'r') as f:
+            resp.body = f.readlines()[-1]

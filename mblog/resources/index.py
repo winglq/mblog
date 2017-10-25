@@ -9,4 +9,3 @@ class Index(object):
         template = env.get_template("index.html")
         resp.content_type = 'text/html'
         resp.body = template.render()
-        

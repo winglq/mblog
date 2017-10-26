@@ -1,11 +1,7 @@
-from jinja2 import Environment, PackageLoader
+from mblog.lib.basetemplate import BaseTemplate
 
-env = Environment(
-    loader=PackageLoader('mblog', 'templates'))
-
-
-class Blog(object):
+class Blog(BaseTemplate):
+    template_name = "blog.html"
     def on_get(self, req, resp, entry_id):
-        template = env.get_template("blog.html")
-        resp.content_type = 'text/html'
-        resp.body = template.render()
+        resp.content_type = "text/html"
+        resp.body = self.render(req, resp)

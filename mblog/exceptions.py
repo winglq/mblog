@@ -50,10 +50,22 @@ class PasswordInCorrect(MBlogException):
     error_code = 403
     msg = "Password does not match user name."
 
+
 class TokenNotExist(MBlogException):
     error_code = 403
     msg = "Token expired or not exist"
 
+
 class IllegalToken(MBlogException):
     error_code = 403
     msg = "Token is illegal"
+
+
+class RequireLogin(MBlogException):
+    error_code = 403
+    msg = "Please login"
+
+
+class Unauthorized(MBlogException):
+    error_code = 403
+    msg = "Unauthorized"

@@ -12,6 +12,7 @@ from mblog.datasources.file import FileSource
 from mblog.resources.data.temperature import Temperature
 from mblog.resources.data.host import Host
 from mblog.resources.login import Login
+from mblog.resources.logout import Logout
 from mblog.middlewares.authentication import AuthencationComponent
 from oslo_config import cfg
 from oslo_log import log as logging
@@ -41,5 +42,6 @@ def launch(conf):
     app.add_route('/data/temperature', Temperature())
     app.add_route('/data/images/{name}', Image())
     app.add_route('/login', Login())
+    app.add_route('/logout', Logout())
     app.add_route('/data/server', Host())
     return app

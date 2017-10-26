@@ -28,5 +28,4 @@ class BaseTemplate(object):
     def render(self, req, resp):
         template = env.get_template(self.template_name)
         all_params = self.get_render_params(req, resp)
-        print all_params
         return template.render(all_params)

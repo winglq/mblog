@@ -1,3 +1,5 @@
+import falcon
+
 from mblog.lib.userauth import UserAuth
 
 
@@ -8,4 +10,4 @@ class Login(object):
         token = UserAuth().authenticate(user, pwd)
         resp.set_cookie('X-AUTH-ID', token)
         resp.set_cookie('X-USER-ID', user)
-        resp.body = "Login successful"
+        raise falcon.HTTPFound(location='/')

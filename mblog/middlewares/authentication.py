@@ -7,7 +7,12 @@ class AuthencationComponent(object):
         token = req.cookies.get('X-AUTH-ID', None)
         usr = req.cookies.get('X-USER-ID', None)
         if token:
-            token_usr = UserAuth().authenticate(token=token)
+            try:
+                token_usr = UserAuth().authenticate(token=token)
+            except exceptions.TokenNotExist:
+                resp.unset_cookie('X-AUTH-ID')
+                resp.unset_cookie('X-USER-ID')
+                raise
             if usr != token_usr:
                 raise exceptions.IllegalToken()
         req.context['user'] = usr

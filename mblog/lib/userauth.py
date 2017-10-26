@@ -9,7 +9,7 @@ class UserAuth:
     reverse_token_map = {}
     auth = BasicAuth()
 
-    def authorize(self, token):
+    def authorize(self, user):
         return True
 
     def authenticate(self, usr=None, pwd=None, token=None):

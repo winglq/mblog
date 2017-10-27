@@ -1,20 +1,22 @@
 import uuid
 
 from mblog.lib.authenticate import BasicAuth
+from mblog.lib.authorize import Authorize
 from mblog import exceptions 
 
 
 class UserAuth:
     token_map = {}
     reverse_token_map = {}
-    auth = BasicAuth()
+    authen = BasicAuth()
+    authorize = Authorize()
 
-    def authorize(self, user):
-        return True
+    def authorize(self, user, resource):
+        authorize.authorize(user, resource)
 
     def authenticate(self, usr=None, pwd=None, token=None):
         if usr and pwd:
-            self.auth.authenticate(usr, pwd)
+            self.authen.authenticate(usr, pwd)
             if usr not in self.token_map:
                 token = str(uuid.uuid4())
                 self.token_map[usr] = token

@@ -1,5 +1,6 @@
 from mblog.lib.userauth import UserAuth
 from mblog import exceptions
+from mblog.lib.user import User
 
 
 class AuthencationComponent(object):
@@ -15,4 +16,4 @@ class AuthencationComponent(object):
                 raise
             if usr != token_usr:
                 raise exceptions.IllegalToken()
-        req.context['user'] = usr
+            req.context['user'] = User(usr)

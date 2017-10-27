@@ -4,12 +4,13 @@ from mblog.stores.driver import StoreDriver
 from mblog import exceptions
 
 
-class FileStoreUser(object):
-    _path = "/tmp/users.json"
+class User(object):
+
     _users = {}
 
-    def __init__(self, username):
-        self.drv = StoreDriver.factory("file")
+    def __init__(self, username, store='file', location="/tmp/users.json"):
+        self.location = location
+        self.drv = StoreDriver.factory('file')
         self._username = username
         self.load()
         if username not in self._users:
@@ -20,7 +21,7 @@ class FileStoreUser(object):
     def load(self):
         if self._users:
             return
-        f = self.drv.load(self._path)
+        f = self.drv.load(self.location)
         cnt = f.read().decode('utf-8')
         self._users = json.loads(cnt)
 

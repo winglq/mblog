@@ -1,5 +1,5 @@
 from mblog import exceptions
-from mblog.lib.user import FileStoreUser
+from mblog.lib.user import User
 
 
 class Authenticate(object):
@@ -9,6 +9,6 @@ class Authenticate(object):
 
 class BasicAuth(object):
     def authenticate(self, usr, pwd):
-        usr = FileStoreUser(usr)
+        usr = User(usr)
         if pwd != usr.password:
             raise exceptions.PasswordInCorrect()

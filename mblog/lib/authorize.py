@@ -16,11 +16,14 @@ class Authorize(object):
                 self.policies = json.loads(f.read())
 
     def authorize(self, user, resource, *args, **kwargs):
-        if hasattr(resource, 'get_rule') and \
-                resource.get_rule(*args, **kwargs):
-            rule = resource.get_rule()
-        else:
-            rule = self.policies.get(type(resource).__name__, None)
+        rule = None
+        if hasattr(resource, 'get_rule'):
+            rule = resource.get_rule(*args, **kwargs)
+        if rule is None:
+            if hasattr(resource, 'resource_name'):
+                rule = self.policies.get(resource.resource_name, None)
+            else:
+                rule = self.policies.get(type(resource).__name__, None)
 
         if not rule:
             return True

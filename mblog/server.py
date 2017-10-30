@@ -1,5 +1,10 @@
 import falcon
 import os
+import sys
+
+if sys.version_info.major < 3:
+    reload(sys)
+    sys.setdefaultencoding('utf8')
 
 from mblog.resources.index import Index
 from mblog.resources.blog import Blog

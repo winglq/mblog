@@ -1,5 +1,6 @@
 from mblog.lib.basetemplate import BaseTemplate
 
+
 class Index(BaseTemplate):
     template_name = "index.html"
 

@@ -15,5 +15,7 @@ class AuthencationComponent(object):
                 resp.unset_cookie('X-USER-ID')
                 raise
             if usr != token_usr:
+                resp.unset_cookie('X-AUTH-ID')
+                resp.unset_cookie('X-USER-ID')
                 raise exceptions.IllegalToken()
             req.context['user'] = User(usr)

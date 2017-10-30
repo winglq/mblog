@@ -15,8 +15,9 @@ class Authorize(object):
             with open(path) as f:
                 self.policies = json.loads(f.read())
 
-    def authorize(self, user, resource):
-        if hasattr(resource, 'get_rule') and resource.get_rule():
+    def authorize(self, user, resource, *args, **kwargs):
+        if hasattr(resource, 'get_rule') and \
+                resource.get_rule(*args, **kwargs):
             rule = resource.get_rule()
         else:
             rule = self.policies.get(type(resource).__name__, None)
@@ -28,7 +29,7 @@ class Authorize(object):
             return False
 
         if rule is "owner":
-            return user.username == resource.get_owner()
+            return user.username == resource.get_owner(*args, **kwargs)
         if rule is "owner_or_group":
             if resource.get_owner().group() == user.group():
                 return True

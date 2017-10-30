@@ -1,4 +1,3 @@
-from mblog import exceptions
 from mblog.lib.user import User
 
 
@@ -11,4 +10,5 @@ class BasicAuth(object):
     def authenticate(self, usr, pwd):
         usr = User(usr)
         if pwd != usr.password:
-            raise exceptions.PasswordInCorrect()
+            return False
+        return True

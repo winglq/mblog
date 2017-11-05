@@ -72,7 +72,9 @@ function show_temperature(){
         method: "GET",
         url: '/data/temperature',
         success: function cb(resp) {
-            $('#temper').text(' ' + resp);
+	    var str = String(resp);
+            $('#temper').text(' ' + str.substring(0, 2));
+            $('#humidity').text(' ' + str.substring(2, 4));
         }
     });
 }

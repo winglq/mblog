@@ -1,13 +1,16 @@
 {% extends "__base.html" %}
 {% block content %}
-<div class="container">
+<div class="row">
+<div class="col-md-12">
 <a id='sys1'>System1</a>
 <a id='sys2'>System2</a>
 <div id="total"></div>
 <table class="table" id="turtle-system">
-  <thead><tr><td>Break Time</td><td>Name</td><td>Code</td><td>Previous High</td><td>Break price</td></tr></thead>
+  <thead><tr><td>Break Time</td><td>Name</td><td>Code</td><td>Previous High</td><td>Break price</td>
+                  <td>std</td></tr></thead>
   <tbody></tbody>
 </table>
+</div>
 </div>
 {% endblock %}
 
@@ -19,10 +22,23 @@ function fill_table_rows(resp){
   for (var i = 0; i < resp.length; i++){
     tr = $('<tr/>');
     tr.append("<td>" + resp[i].break_time + "</td>");
-    tr.append("<td>" + resp[i].name + "</td>");
+    a_tag = $('<a/>');
+    if(resp[i].code.substr(0, 2) === '60'){
+      href = "http://finance.sina.com.cn/realstock/company/sh" + resp[i].code + "/nc.shtml";
+    } else if(resp[i].code.substr(0, 2) === '30' || resp[i].code.substr(0, 2) === '00'){
+      href = "http://finance.sina.com.cn/realstock/company/sz" + resp[i].code + "/nc.shtml";
+    } else {
+      href = 'http://quote.eastmoney.com/' + resp[i].code + '.html'
+    }
+    a_tag.attr('href', href);
+    a_tag.text(resp[i].name);
+    td_tag = $('<td/>');
+    td_tag.append(a_tag);
+    tr.append(td_tag);
     tr.append("<td>" + resp[i].code + "</td>");
     tr.append("<td>" + resp[i].previous_highest_price + "</td>");
     tr.append("<td>" + resp[i].break_price + "</td>");
+    tr.append("<td>" + resp[i].std + "</td>");
     tbody.append(tr);
   }
   $("#turtle-system").append(tbody);
@@ -31,16 +47,16 @@ function load_system(sysnum){
   $('tbody').remove();
   $.ajax({
       method: "GET",
-      url: "/data/tsystem/" + sysnum,
-      success: fill_table_rows,
+      url: "http://192.168.1.113/data/tsystem/" + sysnum,
+      success: fill_table_rows
   });
 }
 $(function(){
   $('#sys1').click(function(){
-          load_system(1);
+          load_system('1');
           });
   $('#sys2').click(function(){
-          load_system(2);
+          load_system('2');
           });
 }
 )

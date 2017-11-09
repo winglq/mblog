@@ -1,0 +1,48 @@
+{% extends "__base.html" %}
+{% block content %}
+<div class="container">
+<a id='sys1'>System1</a>
+<a id='sys2'>System2</a>
+<div id="total"></div>
+<table class="table" id="turtle-system">
+  <thead><tr><td>Break Time</td><td>Name</td><td>Code</td><td>Previous High</td><td>Break price</td></tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+function fill_table_rows(resp){
+  $('#total').text(resp.length);
+  tbody = $('<tbody/>');
+  for (var i = 0; i < resp.length; i++){
+    tr = $('<tr/>');
+    tr.append("<td>" + resp[i].break_time + "</td>");
+    tr.append("<td>" + resp[i].name + "</td>");
+    tr.append("<td>" + resp[i].code + "</td>");
+    tr.append("<td>" + resp[i].previous_highest_price + "</td>");
+    tr.append("<td>" + resp[i].break_price + "</td>");
+    tbody.append(tr);
+  }
+  $("#turtle-system").append(tbody);
+}
+function load_system(sysnum){
+  $('tbody').remove();
+  $.ajax({
+      method: "GET",
+      url: "/data/tsystem/" + sysnum,
+      success: fill_table_rows,
+  });
+}
+$(function(){
+  $('#sys1').click(function(){
+          load_system(1);
+          });
+  $('#sys2').click(function(){
+          load_system(2);
+          });
+}
+)
+</script>
+{% endblock %}

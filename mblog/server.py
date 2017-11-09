@@ -14,8 +14,10 @@ from mblog.resources.data.image import Image
 from mblog.resources.bloglist import BlogList
 from mblog.resources.static import Static
 from mblog.datasources.file import FileSource
+from mblog.resources.stock import Stock
 from mblog.resources.data.temperature import Temperature
 from mblog.resources.data.host import Host
+from mblog.resources.data.turtlesystem import TurtleSystem
 from mblog.resources.login import Login
 from mblog.resources.logout import Logout
 from mblog.middlewares.authentication import AuthencationComponent
@@ -36,7 +38,6 @@ def launch(conf):
 
     app = falcon.API(middleware=[AuthencationComponent()])
     app.resp_options.secure_cookies_by_default = False
-    app.req_options.auto_parse_form_urlencoded = True
     app.add_route('/', Index())
     app.add_route('/blogs/{entry_id}', Blog())
     app.add_route('/data/blogs/{entry_id}', Dblog())
@@ -49,4 +50,6 @@ def launch(conf):
     app.add_route('/login', Login())
     app.add_route('/logout', Logout())
     app.add_route('/data/server', Host())
+    app.add_route('/data/tsystem/{sysnum:int}', TurtleSystem())
+    app.add_route('/stock', Stock())
     return app

@@ -47,8 +47,8 @@ function load_system(sysnum){
   $('tbody').remove();
   $.ajax({
       method: "GET",
-      url: "http://192.168.1.113/data/tsystem/" + sysnum,
-      success: fill_table_rows
+      url: "/data/tsystem/" + sysnum,
+      success: fill_table_rowst
   });
 }
 $(function(){

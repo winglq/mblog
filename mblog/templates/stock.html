@@ -2,11 +2,13 @@
 {% block content %}
 <div class="row">
 <div class="col-md-12">
-<a id='sys1'>System1</a>
-<a id='sys2'>System2</a>
+  <div>
+    <a id='sys1' class="btn btn-primary">System1</a>
+    <a id='sys2' class="btn btn-primary">System2</a>
+  </div>
 <div id="total"></div>
 <table class="table" id="turtle-system">
-  <thead><tr><td>Break Time</td><td>Name</td><td>Code</td><td>Previous High</td><td>Break price</td>
+  <thead><tr><th>Break Time</th><th>Name</th><th>Code</th><th>Previous High</th><th>Break price</th>
                   <td>std</td></tr></thead>
   <tbody></tbody>
 </table>
@@ -31,6 +33,7 @@ function fill_table_rows(resp){
       href = 'http://quote.eastmoney.com/' + resp[i].code + '.html'
     }
     a_tag.attr('href', href);
+    a_tag.attr('target', '_blank');
     a_tag.text(resp[i].name);
     td_tag = $('<td/>');
     td_tag.append(a_tag);
@@ -42,9 +45,11 @@ function fill_table_rows(resp){
     tbody.append(tr);
   }
   $("#turtle-system").append(tbody);
+  $("#loading").remove();
 }
 function load_system(sysnum){
   $('tbody').remove();
+  insert_loading_after($("table"));
   $.ajax({
       method: "GET",
       url: "/data/tsystem/" + sysnum,
@@ -52,6 +57,7 @@ function load_system(sysnum){
   });
 }
 $(function(){
+  register_sort_fun();
   $('#sys1').click(function(){
           load_system('1');
           });

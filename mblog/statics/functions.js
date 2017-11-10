@@ -101,3 +101,37 @@ function login(){
     $("#loginli").text(usr);
   }
 }
+
+function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index)
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+    }
+}
+
+function register_sort_fun(){
+  $('th').click(function(){
+      var table = $(this).parents('table').eq(0);
+      console.log($(this).index());
+      var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+      $('tbody').remove();
+      this.asc = !this.asc;
+      if (!this.asc){rows = rows.reverse();}
+      for (var i = 0; i < rows.length; i++){table.append(rows[i]);}
+  })
+}
+
+function insert_loading_after(after_obj){
+  i_tag = $("<i/>");
+  i_tag.attr('class', "fa fa-spinner fa-spin fa-3x fa-fw");
+  span_tag = $("<span/>");
+  span_tag.attr('class', "sr-only");
+  span_tag.text("Loading...");
+  div_tag = $("<div/>");
+  div_tag.attr('id', 'loading');
+  div_tag.append(i_tag);
+  div_tag.append(span_tag);
+  div_tag.insertAfter(after_obj);
+
+}

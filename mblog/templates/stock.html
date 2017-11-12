@@ -9,7 +9,7 @@
 <div id="total"></div>
 <table class="table" id="turtle-system">
   <thead><tr><th>Break Time</th><th>Name</th><th>Code</th><th>Previous High</th><th>Break price</th>
-                  <th>STD</th></tr></thead>
+                  <th>CV</th></tr></thead>
   <tbody></tbody>
 </table>
 </div>
@@ -41,7 +41,7 @@ function fill_table_rows(resp){
     tr.append("<td>" + resp[i].code + "</td>");
     tr.append("<td>" + resp[i].previous_highest_price + "</td>");
     tr.append("<td>" + resp[i].break_price + "</td>");
-    tr.append("<td>" + resp[i].std + "</td>");
+    tr.append("<td>" + resp[i].cv+ "</td>");
     tbody.append(tr);
   }
   $("#turtle-system").append(tbody);

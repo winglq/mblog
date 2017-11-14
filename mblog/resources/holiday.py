@@ -8,7 +8,7 @@ class Holiday(object):
         path = os.path.join(os.getcwd(), "mblog/files/holidays.json")
         with open(path) as f:
             holidays = json.load(f)
-            if date in holidays:
+            if int(date) in holidays:
                 resp.body = json.dumps(True)
             else:
                 resp.body = json.dumps(False)

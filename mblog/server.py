@@ -22,6 +22,7 @@ from mblog.resources.login import Login
 from mblog.resources.logout import Logout
 from mblog.middlewares.authentication import AuthencationComponent
 from mblog.resources.holiday import Holiday
+from mblog.resources.data.alert import Alert
 from oslo_config import cfg
 from oslo_log import log as logging
 
@@ -54,4 +55,5 @@ def launch(conf):
     app.add_route('/data/tsystem/{sysnum:int}', TurtleSystem())
     app.add_route('/data/holiday/{date}', Holiday())
     app.add_route('/stock', Stock())
+    app.add_route('/data/alert', Alert())
     return app

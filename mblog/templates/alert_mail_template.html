@@ -1,20 +1,8 @@
 <html>
   <body>
-    <h3>{{ info }}</h3>
-    <table style="border-style:solid boder-width:1px">
-      <thead><tr><th>Break Time</th><th>Name</th><th>Code</th><th>Previous High</th><th>Break price</th><th>CV</th></tr></thead>
-    <tbody>
-      {% for stock in stocks %}
-        <tr>
-          <td>{{ stock.break_time }}</td>
-          <td>{{ stock.name }}</td>
-          <td>{{ stock.code }}</td>
-          <td>{{ stock.previous_highest_price }}</td>
-          <td>{{ stock.break_price }}</td>
-          <td>{{ stock.cv }}</td>
-	</tr>
-      {% endfor %}
-    </tbody>
-  </table>	  
+    {% for table in tables %}
+      <h3>{{ table.title }}</h3>
+      {{ table.table }}
+    {% endfor %}
   </body>
 </html>

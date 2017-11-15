@@ -25,6 +25,7 @@ from mblog.resources.holiday import Holiday
 from mblog.resources.data.alert import Alert
 from oslo_config import cfg
 from oslo_log import log as logging
+from mblog.lib.event import EventEngine
 
 
 blog_path = os.path.join(os.getcwd(), 'mblog/markdowns')
@@ -37,6 +38,9 @@ def launch(conf):
     cfg.CONF(args=[],
              project='mblog')
     logging.setup(cfg.CONF, 'mblog')
+
+    event_engine = EventEngine.get_instance()
+    event_engine.start()
 
     app = falcon.API(middleware=[AuthencationComponent()])
     app.resp_options.secure_cookies_by_default = False

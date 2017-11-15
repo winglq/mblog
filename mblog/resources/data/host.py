@@ -1,10 +1,10 @@
 import falcon
 
 from mblog.hooks.authorize import authorize
-from mblog.resources.resourcebase import ReourceBase
+from mblog.resources.resourcebase import ResourceBase
 
 
-class Host(ReourceBase):
+class Host(ResourceBase):
     @falcon.before(authorize)
     def on_get(self, req, resp):
         with open('/tmp/remote_acess.txt', 'r') as f:

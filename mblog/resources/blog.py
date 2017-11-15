@@ -1,12 +1,12 @@
 import falcon
 
 from mblog.lib.basetemplate import BaseTemplate
-from mblog.resources.resourcebase import ReourceBase
+from mblog.resources.resourcebase import ResourceBase
 from mblog.hooks.authorize import authorize
 from mblog.datasources.file import FileSource
 
 
-class Blog(BaseTemplate, ReourceBase):
+class Blog(BaseTemplate, ResourceBase):
 
     template_name = "blog.html"
 

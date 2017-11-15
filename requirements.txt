@@ -16,3 +16,4 @@ urllib3==1.22
 oslo.config==4.13.1
 oslo.log==3.31.0
 futures==3.1.1
+sqlalchemy==1.2.0b3

@@ -27,6 +27,7 @@ from mblog.resources.data.alert import Alert
 from oslo_config import cfg
 from oslo_log import log as logging
 from mblog.lib.event import EventEngine
+from mblog.resources.userstock import UserStock
 
 
 blog_path = os.path.join(os.getcwd(), 'mblog/markdowns')
@@ -62,4 +63,5 @@ def launch(conf):
     app.add_route('/stocksys', StockRecommendSystem())
     app.add_route('/data/alert', Alert())
     app.add_route('/data/stock', Stock())
+    app.add_route('/user/stock', UserStock())
     return app

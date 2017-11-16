@@ -5,7 +5,9 @@ class ResourceBase(object):
         return res_id
 
     def get_owner(self, req=None):
-        return None
+        if req.context.get("user", None) is None:
+            return None
+        return req.context["user"].username
 
     def get_rule(self, req=None):
         return None

@@ -18,8 +18,9 @@ class Stock(ResourceBase):
             stocks.append(dictret)
         resp.body = json.dumps(stocks)
 
-    def get_rule(self, req):
-        return "owner"
+    @falcon.before(authorize)
+    def on_post(self, req, resp):
+        req._parse_form_urlencoded()
 
-    def get_owner(self, req):
-        return req.context["user"].username
+    def get_rule(self, req):
+        return "login"

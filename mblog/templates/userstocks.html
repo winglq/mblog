@@ -1,0 +1,58 @@
+{% extends "__base.html" %}
+{% block content %}
+<div class="row">
+  <div id="mystocks" class="col-md-12">
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+function fill_table(resp){
+  var ths = ["code", "hold_position", "bid_price", "stop_loss_price", "risk_percentage"];
+  var rows = [];
+  for(i = 0; i < resp.length; i++){
+    row = [];
+    for(j = 0; j < ths.length; j++){
+      row.push(resp[i][ths[j]]);
+    }
+    var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
+    row.push(risk_perc.toFixed(2));
+    rows.push(row);
+  }
+  tb = put_data_in_table(ths, rows);
+  console.log(tb);
+  $("#mystocks").append(tb);
+}
+function put_data_in_table(ths, tds){
+  var table_tag = $("<table/>");
+  var thead = $("<thead/>");
+  table_tag.attr("class", "table");
+  var head_tr = $("<tr/>");
+  for(i = 0; i < ths.length; i++){
+    var th_tag = $("<th/>");
+    th_tag.text(ths[i]);
+    head_tr.append(th_tag);
+  }
+  thead.append(head_tr);
+  table_tag.append(thead);
+  var tbody = $("<tbody/>");
+  for(i = 0; i < tds.length; i++){
+    var tr_tag = $("<tr/>");
+      for(j = 0; j < tds[i].length; j++){
+        var td_tag = $("<td/>");
+        td_tag.text(tds[i][j]);
+	tr_tag.append(td_tag);
+      }
+    tbody.append(tr_tag);
+  }
+  table_tag.append(tbody)
+  return table_tag;
+}
+$(function (){
+  $.ajax({
+    method: "GET",
+    url: "/data/stock",
+    success: fill_table})
+})
+</script>
+{% endblock %}

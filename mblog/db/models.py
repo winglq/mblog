@@ -13,7 +13,8 @@ db_file_path = "/var/lib/mblog/mblog.db"
 def get_db_engine():
     global db_engine, db_file_path
     if db_engine is None:
-        db_engine = create_engine("sqlite:///%s" % db_file_path, echo=False)
+        db_engine = create_engine("sqlite:///%s" % db_file_path, echo=False,
+                                  connect_args={'check_same_thread': False})
     return db_engine
 
 

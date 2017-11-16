@@ -36,6 +36,9 @@ class Authorize(object):
         if not user:
             raise exceptions.RequireLogin()
 
+        if rule is "login":
+            return True
+
         if rule is "owner":
             return user.username == resource.get_owner(*args, **kwargs)
         if rule is "owner_or_group":

@@ -13,3 +13,11 @@ class UserStock(BaseTemplate, ResourceBase):
 
     def get_rule(self, req):
         return "owner"
+
+
+class CreateUserStock(BaseTemplate, ResourceBase):
+    template_name = "createuserstock.html"
+    def on_get(self, req, resp):
+        resp.content_type = "text/html"
+        resp.body = self.render(req, resp)
+

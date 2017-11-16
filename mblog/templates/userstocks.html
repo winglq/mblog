@@ -11,16 +11,15 @@ function fill_table(resp){
   var ths = ["code", "hold_position", "bid_price", "stop_loss_price", "risk_percentage"];
   var rows = [];
   for(i = 0; i < resp.length; i++){
+    var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
+    resp[i].risk_percentage = risk_perc.toFixed(2);
     row = [];
     for(j = 0; j < ths.length; j++){
       row.push(resp[i][ths[j]]);
     }
-    var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
-    row.push(risk_perc.toFixed(2));
     rows.push(row);
   }
   tb = put_data_in_table(ths, rows);
-  console.log(tb);
   $("#mystocks").append(tb);
 }
 function put_data_in_table(ths, tds){
@@ -41,7 +40,7 @@ function put_data_in_table(ths, tds){
       for(j = 0; j < tds[i].length; j++){
         var td_tag = $("<td/>");
         td_tag.text(tds[i][j]);
-	tr_tag.append(td_tag);
+        tr_tag.append(td_tag);
       }
     tbody.append(tr_tag);
   }

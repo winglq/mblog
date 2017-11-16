@@ -5,7 +5,7 @@ from mblog.db.models import get_session
 def stock_create(user, code, hold_position, bid_price,
                  stop_loss_price, selled=False,
                  sell_price=None):
-    s = Stock(user=user, code=code, hold_position=hold_posistion,
+    s = Stock(user=user, code=code, hold_position=hold_position,
               bid_price=bid_price, stop_loss_price=stop_loss_price,
               selled=selled, sell_price=sell_price)
     sess = get_session()

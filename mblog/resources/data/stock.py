@@ -28,6 +28,7 @@ class Stock(ResourceBase):
         hold_position = req.params['hold_position']
         stock_create(req.context['user'].username, code, hold_position,
                      bid_price, stop_loss_price)
+        raise falcon.HTTPFound(location='/user/stock')
 
     def get_rule(self, req):
         return "login"

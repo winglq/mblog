@@ -60,3 +60,13 @@ em
 .modal-footer {
   text-align: center;
 }
+
+.tool-bar {
+        text-align: left;
+        margin-left: 20px;
+
+}
+.footer {
+        text-align: center;
+        background-color: #f1f1f1;
+}

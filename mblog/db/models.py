@@ -42,9 +42,9 @@ if __name__ == "__main__":
     import os
     if not os.path.exists(db_file_path):
         Base.metadata.create_all(get_db_engine())
-    s = Stock(code='123456', hold_position=600, bid_price=1.234,
-              stop_loss_price=1.00, selled=False,
-              user='qing')
+    #s = Stock(code='123456', hold_position=600, bid_price=1.234,
+    #          stop_loss_price=1.00, selled=False,
+    #          user='qing')
     session = get_session()
-    session.add(s)
+    #session.add(s)
     session.commit()

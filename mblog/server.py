@@ -24,6 +24,7 @@ from mblog.middlewares.authentication import AuthencationComponent
 from mblog.resources.data.stock import Stock
 from mblog.resources.holiday import Holiday
 from mblog.resources.data.alert import Alert
+from mblog.resources.data.policy import Policy, PolicyList
 from oslo_config import cfg
 from oslo_log import log as logging
 from mblog.lib.event import EventEngine
@@ -65,4 +66,6 @@ def launch(conf):
     app.add_route('/user/stock/create', CreateUserStock())
     app.add_route('/data/stock', Stock())
     app.add_route('/user/stock', UserStock())
+    app.add_route('/data/policy/{policy}', Policy())
+    app.add_route('/data/policylist', PolicyList())
     return app

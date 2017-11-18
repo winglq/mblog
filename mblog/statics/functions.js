@@ -135,3 +135,29 @@ function insert_loading_after(after_obj){
   div_tag.insertAfter(after_obj);
 
 }
+
+function put_data_in_table(ths, tds){
+  var table_tag = $("<table/>");
+  var thead = $("<thead/>");
+  table_tag.attr("class", "table");
+  var head_tr = $("<tr/>");
+  for(i = 0; i < ths.length; i++){
+    var th_tag = $("<th/>");
+    th_tag.text(ths[i]);
+    head_tr.append(th_tag);
+  }
+  thead.append(head_tr);
+  table_tag.append(thead);
+  var tbody = $("<tbody/>");
+  for(i = 0; i < tds.length; i++){
+    var tr_tag = $("<tr/>");
+      for(j = 0; j < tds[i].length; j++){
+        var td_tag = $("<td/>");
+        td_tag.text(tds[i][j]);
+        tr_tag.append(td_tag);
+      }
+    tbody.append(tr_tag);
+  }
+  table_tag.append(tbody)
+  return table_tag;
+}

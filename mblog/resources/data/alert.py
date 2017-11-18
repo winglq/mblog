@@ -98,15 +98,20 @@ class StockAlertHandler(BaseTemplate):
     def stocks_to_html_table(self, stocks):
         sina_url = "http://finance.sina.com.cn/realstock/company/%s/nc.shtml"
         output = StringIO.StringIO()
-        keys = ["break_time", "code", "name", "break_price",
-                "previous_highest_price", "cv"]
+        keys = ["update_time", "code", "name", "now"]
+        addition_keys = [x for x in stocks[0]["rule_results"].keys()]
+        keys.extend(addition_keys)
         with self.tag(output, "table"):
             with self.tag(output, "tr"):
                 for key in keys:
                     with self.tag(output, "th"):
-                        output.write(key)
+                        if key == "now":
+                            output.write("update price")
+                        else:
+                            output.write(key)
             with self.tag(output, "tbody"):
                 for stock in stocks:
+                    stock.update(stock["rule_results"])
                     with self.tag(output, "tr"):
                         for key in keys:
                             with self.tag(output, "td"):

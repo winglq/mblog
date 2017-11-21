@@ -154,6 +154,14 @@ function edit_control(sid, action){
   return control("fa-pencil", sid, action);
 }
 
+function check_control(sid, action){
+  return control("fa-check", sid, action);
+}
+
+function remove_control(sid, action){
+  return control("fa-remove", sid, action);
+}
+
 function remove_loading(){
   $(".loading-gif").remove();
 }
@@ -196,3 +204,55 @@ function put_data_in_table(ths, tds, cth, buttons){
   table_tag.append(tbody)
   return table_tag;
 }
+
+function cal_percentage(bid_price, stop_loss_price){
+        return ((bid_price - stop_loss_price) / bid_price * 100).toFixed(2);
+}
+function cal_stop_loss_price(bid_price, risk_percent){
+        return (bid_price - risk_percent * bid_price / 100).toFixed(2);
+}
+
+function cal_total_price(bid_price, hold_position){
+        return bid_price * hold_position;
+}
+
+function cal_total_lost(bid_price, hold_position, risk_percent){
+        return bid_price * hold_position * risk_percent / 100;
+}
+
+function register_stop_loss_price_change_event(){
+  $("#stop-loss-price").change(function(){
+                  percent = cal_percentage($("#bid-price").val(), $("#stop-loss-price").val());
+                  $("#risk").val(percent);
+                  total_lost = cal_total_lost($("#bid-price").val(), $("#hold-position").val(), percent);
+                  $("#total-lost").val(total_lost);
+    });
+  
+  $("#risk").change(function(){
+                  price = cal_stop_loss_price($("#bid-price").val(), $("#risk").val());
+                  $("#stop-loss-price").val(price);
+                  total_lost = cal_total_lost($("#bid-price").val(), $("#hold-position").val(), $("#risk").val());
+                  $("#total-lost").val(total_lost);
+
+    });
+
+  $("#hold-position").change(function(){
+                  total_p = cal_total_price($("#bid-price").val(), $("#hold-position").val());
+                  $("#total-price").val(total_p);
+                  percent = cal_percentage($("#bid-price").val(), $("#stop-loss-price").val());
+                  total_lost = cal_total_lost($("#bid-price").val(), $("#hold-position").val(), percent);
+                  $("#total-lost").val(total_lost);
+
+    });
+
+  $("#bid-price").change(function(){
+                  total_p = cal_total_price($("#bid-price").val(), $("#hold-position").val());
+                  $("#total-price").val(total_p);
+                  percent = cal_percentage($("#bid-price").val(), $("#stop-loss-price").val());
+                  total_lost = cal_total_lost($("#bid-price").val(), $("#hold-position").val(), percent);
+                  $("#total-lost").val(total_lost);
+
+    })
+
+}
+

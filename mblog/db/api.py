@@ -23,3 +23,11 @@ def stock_delete(sid):
     stock = sess.query(Stock).get(sid)
     sess.delete(stock)
     sess.commit()
+
+
+#def stock_update(id, hold_position=None, bid_price=None, stop_loss_price=None,
+#                 selled=None, sell_price=None):
+def stock_update(sid, **kwargs):
+    sess = get_session()
+    stock = sess.query(Stock).filter_by(id=sid).update(kwargs)
+    sess.commit()

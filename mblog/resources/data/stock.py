@@ -4,6 +4,7 @@ import falcon
 from mblog.db.api import stock_list
 from mblog.db.api import stock_create
 from mblog.db.api import stock_delete
+from mblog.db.api import stock_update
 from mblog.hooks.authorize import authorize
 from mblog.resources.resourcebase import ResourceBase
 
@@ -35,6 +36,12 @@ class Stock(ResourceBase):
     def on_delete(self, req, resp):
         sid = req.query_string.split('=')[-1]
         stock_delete(sid)
+
+    @falcon.before(authorize)
+    def on_put(self, req, resp):
+        req._parse_form_urlencoded()
+        sid = req.params.pop('sid')
+        stock_update(sid, **req.params)
 
     def get_rule(self, req):
         return "login"

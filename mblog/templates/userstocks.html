@@ -25,8 +25,72 @@ function delete_action(sid){
      }
      });
 }
+
+function change_text_to_input(td, name, cls){
+  pre_val = td.text();
+  tag_text = $("<input/>");
+  tag_text.attr('type', 'text');
+  tag_text.attr("name", name);
+  tag_text.attr("id", cls);
+  tag_text.attr("value", pre_val);
+  tag_text.attr("class", cls);
+  td.text('');
+  td.append(tag_text);
+}
+
+function edit_action(sid){
+  $("table tr").each(function(){
+     var td_tag = $(this).find("td:first");
+     if (sid == td_tag.text()){
+       tds = $(this).children();
+       tag_text = $("<input/>");
+       tag_text.attr('type', 'text');
+       var hold_p = $(tds[2]);
+       var bid_p = $(tds[3]);
+       var stop_l = $(tds[4]);
+       var risk_p = $(tds[5]);
+       change_text_to_input(hold_p, 'hold_position', 'hold-position');
+       change_text_to_input(bid_p, 'bid_price', 'bid-price');
+       change_text_to_input(stop_l, 'stop_loss_price', 'stop-loss-price');
+       change_text_to_input(risk_p, 'risk_percentage', 'risk');
+       register_stop_loss_price_change_event();
+       var controllers = $(tds[8]);
+       controllers.append(check_control(sid, check_action));
+       controllers.append(' | ');
+       controllers.append(remove_control(sid, remove_action));
+       }
+  }) 
+}
+
+function remove_action(sid){
+
+       location.reload();
+}
+
+function check_action(sid){
+  var data = new Object();
+  $("table tr").each(function(){
+     var td_tag = $(this).find("td:first");
+     if(sid == td_tag.text()){
+       data.sid = sid;
+       data.bid_price = $("#bid-price").val();
+       data.stop_loss_price = $("#stop-loss-price").val();
+       data.hold_position = $("#hold-position").val();
+       console.log(data);
+       location.reload();
+     }
+  })
+
+  $.ajax({
+    method: 'PUT',
+    url: '/data/stock',
+    data: data,
+    success: function(){
+      location.reload();}});
+}
+
 function fill_table(resp){
-  var ths = ["code", "hold_position", "bid_price", "stop_loss_price", "risk_percentage"];
+  var ths = ["id", "code", "hold_position", "bid_price", "stop_loss_price", "risk_percentage", "total_price", "total_lost"];
   var cth = "actions";
   var rows = [];
   var btns = [];
@@ -34,6 +98,8 @@ function fill_table(resp){
     var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
     risk_perc = risk_perc * 100;
     resp[i].risk_percentage = risk_perc.toFixed(2);
+    resp[i].total_price = (resp[i]["bid_price"] * resp[i]["hold_position"]).toFixed(2);
+    resp[i].total_lost = (resp[i].total_price * resp[i].risk_percentage / 100).toFixed(2);
     row = [];
     for(j = 0; j < ths.length; j++){
       row.push(resp[i][ths[j]]);
@@ -41,7 +107,7 @@ function fill_table(resp){
     rows.push(row);
     btn_row = [];
     btn_row.push(delete_control(resp[i]['id'], delete_action));
-    btn_row.push(edit_control(resp[i]['id'], delete_action));
+    btn_row.push(edit_control(resp[i]['id'], edit_action));
     btns.push(btn_row);
   }
   tb = put_data_in_table(ths, rows, cth, btns);

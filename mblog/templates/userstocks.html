@@ -1,6 +1,10 @@
 {% extends "__base.html" %}
 {% block content %}
 <div class="row">
+  <div class="tool-bar">
+    <a class="btn btn-primary" href="/user/stock/create">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+  </div>
   <div id="mystocks" class="col-md-12">
   </div>
 </div>
@@ -12,6 +16,7 @@ function fill_table(resp){
   var rows = [];
   for(i = 0; i < resp.length; i++){
     var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
+    risk_perc = risk_perc * 100;
     resp[i].risk_percentage = risk_perc.toFixed(2);
     row = [];
     for(j = 0; j < ths.length; j++){

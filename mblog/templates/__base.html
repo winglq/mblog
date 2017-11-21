@@ -25,10 +25,21 @@
     {% block content%}{% endblock %}
     </div>
   </div>
+  {% include "cdn.js" %}
+  <script src="/statics/functions.js"></script>
+  <script src="/statics/global.js"></script>
+  {% block script %}{% endblock %}
+
+  <div class="row footer">
+    <div class="center-block col-md-4 col-xs-12"  style="float: none">
+      <footer>
+        {% block footer %}
+          <p><a href="/blogs/about">about</a>|powered by <a href="/blogs/contact">qing</a></p>
+        {% endblock %}
+      </footer>
+    </div>
+  </div>
 </div>
-{% include "cdn.js" %}
-<script src="/statics/functions.js"></script>
-<script src="/statics/global.js"></script>
-{% block script %}{% endblock %}
+
 </body>
 </html>

@@ -53,7 +53,8 @@ function fill_table_rows(resp){
     tbody.append(tr);
   }
   $("#turtle-system").append(tbody);
-  $("#loading").remove();
+  remove_loading();
+  register_sort_fun();
 }
 function load_system(sysnum){
   $('tbody').remove();
@@ -65,7 +66,6 @@ function load_system(sysnum){
   });
 }
 $(function(){
-  register_sort_fun();
   show_system_buttons();
 }
 )

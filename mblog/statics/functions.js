@@ -129,11 +129,15 @@ function insert_loading_after(after_obj){
   span_tag.attr('class', "sr-only");
   span_tag.text("Loading...");
   div_tag = $("<div/>");
-  div_tag.attr('id', 'loading');
+  div_tag.attr('class', 'loading-gif');
   div_tag.append(i_tag);
   div_tag.append(span_tag);
   div_tag.insertAfter(after_obj);
 
+}
+
+function remove_loading(){
+  $(".loading-gif").remove();
 }
 
 function put_data_in_table(ths, tds){

@@ -11,9 +11,25 @@
 {% endblock %}
 {% block script %}
 <script>
+function delete_action(sid){
+  $.ajax({
+     method: "delete",
+     url: "/data/stock?sid=" + sid,
+     success: function(resp){
+       console.log("reload page");
+       location.reload();},
+     error: function(resp){
+       console.log("error");
+       console.log(resp);
+       location.reload();
+     }
+     });
+}
 function fill_table(resp){
   var ths = ["code", "hold_position", "bid_price", "stop_loss_price", "risk_percentage"];
+  var cth = "actions";
   var rows = [];
+  var btns = [];
   for(i = 0; i < resp.length; i++){
     var risk_perc = (resp[i]["bid_price"] - resp[i]["stop_loss_price"]) / resp[i]["bid_price"];
     risk_perc = risk_perc * 100;
@@ -23,8 +39,12 @@ function fill_table(resp){
       row.push(resp[i][ths[j]]);
     }
     rows.push(row);
+    btn_row = [];
+    btn_row.push(delete_control(resp[i]['id'], delete_action));
+    btn_row.push(edit_control(resp[i]['id'], delete_action));
+    btns.push(btn_row);
   }
-  tb = put_data_in_table(ths, rows);
+  tb = put_data_in_table(ths, rows, cth, btns);
   $("#mystocks").append(tb);
 }
 

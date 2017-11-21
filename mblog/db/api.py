@@ -12,7 +12,14 @@ def stock_create(user, code, hold_position, bid_price,
     sess.add(s)
     sess.commit()
 
+
 def stock_list(user):
     sess = get_session()
     return sess.query(Stock).filter_by(user=user)
 
+
+def stock_delete(sid):
+    sess = get_session()
+    stock = sess.query(Stock).get(sid)
+    sess.delete(stock)
+    sess.commit()

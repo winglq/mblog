@@ -72,7 +72,7 @@ function show_temperature(){
         method: "GET",
         url: '/data/temperature',
         success: function cb(resp) {
-	    var str = String(resp);
+            var str = String(resp);
             $('#temper').text(' ' + str.substring(0, 2));
             $('#humidity').text(' ' + str.substring(2, 4));
         }
@@ -136,11 +136,29 @@ function insert_loading_after(after_obj){
 
 }
 
+function control(cls, sid, action){
+  var a_tag = $("<a/>");
+  a_tag.attr("href", "#");
+  a_tag.append('<i class="fa ' + cls + ' fa-lg"></i>');
+  a_tag.click(function(){
+    action(sid);
+  })
+  return a_tag;
+
+}
+function delete_control(sid, action){
+  return control("fa-trash-o", sid, action);
+}
+
+function edit_control(sid, action){
+  return control("fa-pencil", sid, action);
+}
+
 function remove_loading(){
   $(".loading-gif").remove();
 }
 
-function put_data_in_table(ths, tds){
+function put_data_in_table(ths, tds, cth, buttons){
   var table_tag = $("<table/>");
   var thead = $("<thead/>");
   table_tag.attr("class", "table");
@@ -150,6 +168,10 @@ function put_data_in_table(ths, tds){
     th_tag.text(ths[i]);
     head_tr.append(th_tag);
   }
+  var th_tag = $("<th/>");
+  th_tag.text(cth);
+  head_tr.append(th_tag);
+
   thead.append(head_tr);
   table_tag.append(thead);
   var tbody = $("<tbody/>");
@@ -160,6 +182,15 @@ function put_data_in_table(ths, tds){
         td_tag.text(tds[i][j]);
         tr_tag.append(td_tag);
       }
+      if (buttons != null){
+        var td_tag = $("<td/>");
+        for (x = 0; x < buttons[i].length; x++){
+          td_tag.append(buttons[i][x]);
+          td_tag.append(" | ");
+        }
+        tr_tag.append(td_tag);
+      }
+
     tbody.append(tr_tag);
   }
   table_tag.append(tbody)

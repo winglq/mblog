@@ -21,6 +21,9 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a>
           <ul class="dropdown-menu">
             <li><a href='/user/stock'>My Stocks</a></li>
+            {% if user == 'qing' %}
+            <li><a href='/data/server'>Pi</a></li>
+            {% endif %}
             <li><a href='/logout'>Logout</a></li>
         </li>
         {% else %}

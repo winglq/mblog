@@ -89,5 +89,25 @@ function show_system_buttons(){
           }
 )
 }
+
+function showleftbar(resp){
+        var p = $("<p/>");
+        var update_time = resp.update_time;
+        p.text("update_time: " + update_time);
+        $("#left-bar").append(p);
+        for (i = 0; i < Object.keys(resp.today_updown).length; i++){
+            var key = Object.keys(resp.today_updown)[i];
+            var p = $("<p/>");
+            p.text(key + ": " + resp.today_updown[key]);
+            $("#left-bar").append(p);
+        }
+}
+function leftbar(){
+        $.ajax({
+           method: "GET",
+           url: "/data/statistics",
+           success: showleftbar});
+}
+leftbar();
 </script>
 {% endblock %}
